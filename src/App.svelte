@@ -1,65 +1,195 @@
 <script lang="ts">
-  import logo from './assets/svelte.png'
-  import Counter from './lib/Counter.svelte'
+	import { Editor } from "@tiptap/core";
+  import {
+    onDestroy,
+    onMount,
+  } from "svelte";
+  import StarterKit from "@tiptap/starter-kit";
+
+  let documentElement: HTMLDivElement;
+  let editor: Editor;
+
+  onMount(() => {
+		editor = new Editor({
+			element: documentElement,
+			extensions: [StarterKit],
+			content: "", // TODO
+			autofocus: true,
+      onTransaction: () => {
+        // Force re-render so `editor.isActive` works as expected
+        editor = editor
+      },
+		});
+  });
+
+  onDestroy(() => {
+    if (editor != null) {
+      editor.destroy();
+    }
+  });
 </script>
 
-<main>
-  <img src={logo} alt="Svelte Logo" />
-  <h1>Hello Typescript!</h1>
+<div id="wrapper">
+	<div id="editor">
+		<div id="menu">
+			{#if editor !== undefined}
+				<button
+					on:click={() => (
+						editor.chain()
+				      .focus()
+		          .toggleHeading({level: 1})
+				      .run()
+		      )}
+					class:active={editor.isActive('heading', { level: 1 })}
+				>
+					H1
+				</button>
+				<button
+					on:click={() => (
+						editor.chain()
+				      .focus()
+		          .toggleHeading({level: 2})
+				      .run()
+		      )}
+					class:active={editor.isActive('heading', { level: 2 })}
+				>
+					H2
+				</button>
+				<button
+					on:click={() => (
+						editor.chain()
+				      .focus()
+		          .toggleHeading({level: 3})
+				      .run()
+		      )}
+					class:active={editor.isActive('heading', { level: 3 })}
+				>
+					H3
+				</button>
+				<button
+					on:click={() => (
+						editor.chain()
+				      .focus()
+		          .toggleHeading({level: 4})
+				      .run()
+		      )}
+					class:active={editor.isActive('heading', { level: 4 })}
+				>
+					H4
+				</button>
+				<button
+					on:click={() => (
+						editor.chain()
+				      .focus()
+				      .setParagraph()
+				      .run()
+		      )}
+					class:active={editor.isActive('paragraph')}
+				>
+					P
+				</button>
+				<div
+					style="padding-right: 10px; border-right: 1px solid grey; margin-right: 10px;"
+				></div>
+				<button
+					on:click={() => (
+						editor.chain()
+				      .focus()
+				      .toggleBold()
+				      .run()
+		      )}
+					class:active={editor.isActive('bold')}
+				>
+					B
+				</button>
+				<button
+					on:click={() => (
+						editor.chain()
+				      .focus()
+				      .toggleItalic()
+				      .run()
+		      )}
+					class:active={editor.isActive('italic')}
+				>
+					I
+				</button>
+			{/if}
+		</div>
 
-  <Counter />
-
-  <p>
-    Visit <a href="https://svelte.dev">svelte.dev</a> to learn how to build Svelte
-    apps.
-  </p>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme">SvelteKit</a> for
-    the officially supported framework, also powered by Vite!
-  </p>
-</main>
+		<div
+			id="document"
+			bind:this={documentElement}
+		>
+		</div>
+	</div>
+</div>
 
 <style>
-  :root {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
+	:global(.ProseMirror-selectednode) {
+		outline: 1px solid -webkit-focus-ring-color;
+	}
 
-  main {
-    text-align: center;
-    padding: 1em;
-    margin: 0 auto;
-  }
+	:global(.ProseMirror.ProseMirror-focused) {
+		outline: none;
+	}
 
-  img {
-    height: 16rem;
-    width: 16rem;
-  }
+	:global(input) {
+		font-size: 1em;
+	}
 
-  h1 {
-    color: #ff3e00;
-    text-transform: uppercase;
-    font-size: 4rem;
-    font-weight: 100;
-    line-height: 1.1;
-    margin: 2rem auto;
-    max-width: 14rem;
-  }
+	:global(#document > .ProseMirror) {
+		flex: 1;
+		height: calc(100% - 10px * 2);
+		width: calc(100% - 20px);
+		min-width: 400px;
+	}
 
-  p {
-    max-width: 14rem;
-    margin: 1rem auto;
-    line-height: 1.35;
-  }
+	:global(html, body, #app) {
+		height: 100%;
+		margin: 0;
+	}
 
-  @media (min-width: 480px) {
-    h1 {
-      max-width: none;
-    }
+	#wrapper {
+		background: hsl(0, 0%, 95%);
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		box-sizing: border-box;
+		padding: 20px;
+	}
 
-    p {
-      max-width: none;
-    }
-  }
+	#editor {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		width: 100%;
+		max-width: 800px;
+		box-shadow: rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+	}
+
+	#menu {
+		background: white;
+		padding: 10px 20px;
+		border-bottom: 1px solid lightgrey;
+		display: flex;
+	}
+
+	#menu button + button {
+		margin-left: 10px;
+	}
+
+	#menu button.active {
+		background: black;
+		color: white;
+	}
+
+	#document {
+		flex: 1;
+		box-sizing: border-box;
+		background: white;
+		height: 100%;
+		overflow: auto;
+		padding: 10px 0px 10px 20px;
+		display: flex;
+	}
 </style>
