@@ -5,15 +5,38 @@
     onMount,
   } from "svelte";
   import StarterKit from "@tiptap/starter-kit";
+  import { Collaboration } from "@tiptap/extension-collaboration";
+  import CollaborationCursor from '@tiptap/extension-collaboration-cursor'
+  import { HocuspocusProvider } from '@hocuspocus/provider'
+  import { WebrtcProvider } from "y-webrtc";
+  import * as Y from "yjs";
+
 
   let documentElement: HTMLDivElement;
   let editor: Editor;
 
+  const ydoc = new Y.Doc();
+	const provider = new WebrtcProvider("tobloef", ydoc);
+
   onMount(() => {
 		editor = new Editor({
 			element: documentElement,
-			extensions: [StarterKit],
-			content: "", // TODO
+			extensions: [
+        StarterKit.configure({
+	        history: false,
+        }),
+				Collaboration.configure({
+					document: ydoc,
+				}),
+        CollaborationCursor.configure({
+	        provider,
+	        user: {
+            name: "User " + Math.round(Math.random() * 100),
+		        color: "#f783ac",
+	        }
+        }),
+			],
+			content: "",
 			autofocus: true,
       onTransaction: () => {
         // Force re-render so `editor.isActive` works as expected
