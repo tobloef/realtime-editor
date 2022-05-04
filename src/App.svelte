@@ -15,11 +15,16 @@
   const documentId = "tobloef";
   const ydoc = new Y.Doc();
 
+  const webrtcProvider = new WebrtcProvider(documentId, ydoc);
+
+  /*
   const websocketProvider = new HocuspocusProvider({
     url: 'ws://127.0.0.1:1234',
     name: documentId,
     document: ydoc,
   });
+  */
+
   const indexeddbProvider = new IndexeddbPersistence(documentId, ydoc);
 
   let documentElement: HTMLDivElement;
@@ -42,7 +47,7 @@
           document: ydoc,
         }),
         CollaborationCursor.configure({
-          provider: websocketProvider,
+          provider: webrtcProvider,
         }),
       ],
     })
