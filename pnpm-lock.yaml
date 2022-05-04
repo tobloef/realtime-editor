@@ -8,21 +8,31 @@ specifiers:
   '@tiptap/extension-collaboration-cursor': ^2.0.0-beta.34
   '@tiptap/starter-kit': ^2.0.0-beta.184
   '@tsconfig/svelte': ^2.0.1
+  prosemirror-model: ^1.16.1
+  prosemirror-state: ^1.3.4
+  prosemirror-view: ^1.23.13
   svelte: ^3.44.0
   svelte-check: ^2.2.7
   svelte-preprocess: ^4.9.8
   tslib: ^2.3.1
   typescript: ^4.5.4
   vite: ^2.9.7
+  y-indexeddb: ^9.0.7
+  y-protocols: ^1.0.5
   y-webrtc: ^10.2.3
   yjs: ^13.5.35
 
 dependencies:
   '@hocuspocus/provider': 1.0.0-alpha.36
   '@tiptap/core': 2.0.0-beta.175
-  '@tiptap/extension-collaboration': 2.0.0-beta.33_fb26a74668454831e35ae78510fc00fa
-  '@tiptap/extension-collaboration-cursor': 2.0.0-beta.34_fb26a74668454831e35ae78510fc00fa
+  '@tiptap/extension-collaboration': 2.0.0-beta.33_216e66f8ad7ab98492eb83506c3fb005
+  '@tiptap/extension-collaboration-cursor': 2.0.0-beta.34_ecef95a55a9cc2fc393f0786415043a2
   '@tiptap/starter-kit': 2.0.0-beta.184
+  prosemirror-model: 1.16.1
+  prosemirror-state: 1.3.4
+  prosemirror-view: 1.23.13
+  y-indexeddb: 9.0.7_yjs@13.5.35
+  y-protocols: 1.0.5
   y-webrtc: 10.2.3
   yjs: 13.5.35
 
@@ -169,13 +179,13 @@ packages:
       '@tiptap/core': 2.0.0-beta.175
     dev: false
 
-  /@tiptap/extension-collaboration-cursor/2.0.0-beta.34_fb26a74668454831e35ae78510fc00fa:
+  /@tiptap/extension-collaboration-cursor/2.0.0-beta.34_ecef95a55a9cc2fc393f0786415043a2:
     resolution: {integrity: sha512-6jxM8jxOXEwRHv7rkWsacC8Q3km83opEK/2udiMEC7a/yFeMKpYjOP+sAvzdGBposlIof/VgjXhbIUBRBqmqLw==}
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
       '@tiptap/core': 2.0.0-beta.175
-      y-prosemirror: 1.0.19_yjs@13.5.35
+      y-prosemirror: 1.0.19_6d0b57b3e17b560c1a025c3c88e1a783
     transitivePeerDependencies:
       - prosemirror-model
       - prosemirror-state
@@ -184,14 +194,14 @@ packages:
       - yjs
     dev: false
 
-  /@tiptap/extension-collaboration/2.0.0-beta.33_fb26a74668454831e35ae78510fc00fa:
+  /@tiptap/extension-collaboration/2.0.0-beta.33_216e66f8ad7ab98492eb83506c3fb005:
     resolution: {integrity: sha512-KMHJxsS/FSVyum2ds3gfu0WFU1Zu7xQ5YmsSCLXyBxkhDtBGWBZTcpcSh9siWfs26+Fk1ZvcEssNyRYMEummpQ==}
     peerDependencies:
       '@tiptap/core': ^2.0.0-beta.1
     dependencies:
       '@tiptap/core': 2.0.0-beta.175
       prosemirror-state: 1.3.4
-      y-prosemirror: 1.0.19_675a4cd02e3081d8119574bb432e6d35
+      y-prosemirror: 1.0.19_6d0b57b3e17b560c1a025c3c88e1a783
     transitivePeerDependencies:
       - prosemirror-model
       - prosemirror-view
@@ -1367,21 +1377,16 @@ packages:
     dev: false
     optional: true
 
-  /y-prosemirror/1.0.19_675a4cd02e3081d8119574bb432e6d35:
-    resolution: {integrity: sha512-et+aqYltjamYBk+uml5/y86PioRstv0r0B+4Oct/IA9Go55whK8MCaFcYZ65aH5Ip7ELmgqzdvrEreyvEzORGA==}
+  /y-indexeddb/9.0.7_yjs@13.5.35:
+    resolution: {integrity: sha512-58rDlwtRgXucgR9Kxc49AepAR6uGNGfcvPPAMrmMfSvRBQ/tPnx6NoHNyrRkhbALEAjV9tPEAIP0a/KkVqAIyA==}
     peerDependencies:
-      prosemirror-model: ^1.7.1
-      prosemirror-state: ^1.2.3
-      prosemirror-view: ^1.9.10
-      y-protocols: ^1.0.1
-      yjs: ^13.3.2
+      yjs: ^13.0.0
     dependencies:
       lib0: 0.2.51
-      prosemirror-state: 1.3.4
       yjs: 13.5.35
     dev: false
 
-  /y-prosemirror/1.0.19_yjs@13.5.35:
+  /y-prosemirror/1.0.19_6d0b57b3e17b560c1a025c3c88e1a783:
     resolution: {integrity: sha512-et+aqYltjamYBk+uml5/y86PioRstv0r0B+4Oct/IA9Go55whK8MCaFcYZ65aH5Ip7ELmgqzdvrEreyvEzORGA==}
     peerDependencies:
       prosemirror-model: ^1.7.1
@@ -1391,6 +1396,10 @@ packages:
       yjs: ^13.3.2
     dependencies:
       lib0: 0.2.51
+      prosemirror-model: 1.16.1
+      prosemirror-state: 1.3.4
+      prosemirror-view: 1.23.13
+      y-protocols: 1.0.5
       yjs: 13.5.35
     dev: false
 
